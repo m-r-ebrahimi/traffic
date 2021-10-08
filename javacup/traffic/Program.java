@@ -1,9 +1,9 @@
 package ir.javacup.traffic;
 
+import ir.javacup.traffic.impl.TrafficInfo;
+
 import java.util.Arrays;
 import java.util.List;
-
-import ir.javacup.traffic.impl.TrafficInfo;
 
 public class Program {
 
@@ -22,19 +22,18 @@ public class Program {
         };
 
         Observable<TrafficInfo> observable = new ir.javacup.traffic.impl.TrafficObservable();
-        Transformer<TrafficInfo, String> transformer = new ir.javacup.traffic.impl.TrafficInfoTransformer<>();
+        Transformer<TrafficInfo, String> transformer = new ir.javacup.traffic.impl.TrafficInfoTransformer();
 
         // MTAyMDEsMDM= : 10201,03
         // MTA0NTEsMDk= : 10451,09
-        List<String> inputs = Arrays.asList("MTAyMDEsMDM=", "MTA0NTEsMDk=");
+        List<String> inputs = Arrays.asList("MTAyMDEsMDM=","MTA0NTEsMDk=");
 
-        Context c = new ir.javacup.traffic.Context<TrafficInfo, String>()
+        new ir.javacup.traffic.Context<TrafficInfo, String>()
                 .observable(observable)
                 .transformer(transformer)
                 .subscriber(subscriber1)
-                .subscriber(subscriber2);
-
-        c.run(inputs);
+                .subscriber(subscriber2)
+                .run(inputs);
     }
 
 }

@@ -7,16 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrafficObservable implements Observable {
-    Object obj;
+    Object object;
     List<Subscriber> subscriberList = new ArrayList<>();
-
 
     @Override
     public void push(Object obj) {
-        this.obj = obj;
-        for (Subscriber s : subscriberList) {
-            s.onNext(obj);
+        object = obj;
+        for (Subscriber sub : subscriberList) {
+            sub.onNext(obj);
         }
+
     }
 
     @Override

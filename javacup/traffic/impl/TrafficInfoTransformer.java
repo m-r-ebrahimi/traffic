@@ -4,14 +4,21 @@ import ir.javacup.traffic.Transformer;
 
 import java.util.Base64;
 
-public class TrafficInfoTransformer<T, I > implements Transformer<T, I> {
+public class TrafficInfoTransformer implements Transformer<TrafficInfo, String> {
 
     @Override
-    public T transform(I input) {
+    public TrafficInfo transform(String input) {
         try {
-            byte[] decodedBytes = Base64.getDecoder().decode((String) input);
-            String str=new String(decodedBytes);
-            return (T) str;
+            byte[] bytes = Base64.getDecoder().decode((String) input);
+            String strByte = new String(bytes);
+            if (!strByte.contains(",")) {
+                throw new IllegalArgumentException();
+            }
+            TrafficInfo tr = new TrafficInfo();
+            String[] str = strByte.split(",");
+            tr.setLocationCode(str[0]);
+            tr.setTrafficLevel(Integer.parseInt(str[1]));
+            return tr;
         } catch (Exception e) {
             throw new IllegalArgumentException();
         }
