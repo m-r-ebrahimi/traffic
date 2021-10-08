@@ -9,7 +9,7 @@ public class TrafficInfoTransformer implements Transformer<TrafficInfo, String> 
     @Override
     public TrafficInfo transform(String input) {
         try {
-            byte[] bytes = Base64.getDecoder().decode((String) input);
+            byte[] bytes = Base64.getDecoder().decode(input);
             String strByte = new String(bytes);
             if (!strByte.contains(",")) {
                 throw new IllegalArgumentException();
